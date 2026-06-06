@@ -2,17 +2,31 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define N 512
-
-int main()
+int main(int teste_arg, char *teste_v[])
 {
+    if (teste_arg != 2)
+    {
+        printf("Escolha outro tamanho\n");
+        return (1);
+    }
+
+    int N = atoi(teste_v[1]); //Converte argumento para inteiro.
+
+    printf("Tamanho da matriz: %d X %d\n", N, N);
+
     int *Mat1 = malloc(N*N * sizeof(int)); //Primeira Matriz.
     int *Mat2 = malloc(N*N * sizeof(int)); //Segunda Matriz. 
     int *MatR = malloc(N*N * sizeof(int)); // Resultado.
 
     if (!Mat1 || !Mat2 || !MatR)
+    {
         printf("Erro ao alocar\n");
+        free(Mat1);
+        free(Mat2);
+        free(MatR);
 
+        return(1);
+    }
     //Inicializacao das matrizes.
     for (int i = 0; i < N; i++)
     {
@@ -44,7 +58,7 @@ int main()
     clock_t fim = clock();
 
     double tempo = (double)(fim-inicio) /CLOCKS_PER_SEC;
-    printf("O tempo eh: %f segundos\n", tempo);
+    printf("O tempo eh: %.6f segundos\n", tempo);
 
     printf("Primeiro elemento = %d\n", MatR[0]);
 
