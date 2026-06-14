@@ -116,6 +116,7 @@ void columnsXrows(MemorySystem *sys) {
     printf("\n\tLinha vs Coluna\n");
 
     /* Acesso por linha */
+    printf("\nAcesso por linha\n");
     init_memory(sys);
     sum = 0;
     for (int i = 0; i < MATRIX_ROWS; i++)
@@ -126,6 +127,7 @@ void columnsXrows(MemorySystem *sys) {
     print_stats(sys);
 
     /* Acesso por coluna */
+    printf("\nAcesso por coluna\n");
     init_memory(sys); 
     sum = 0;
     for (int j = 0; j < MATRIX_COLS; j++)
@@ -146,6 +148,7 @@ void warmup(MemorySystem *sys) {
     printf("\n\tWarm-up\n");
 
     /* Sem warm-up */
+    printf("\nSem warm-up\n");
     init_memory(sys); load_matrix(sys); reset_stats(sys);
     sum = 0;
     for (int i = 0; i < MATRIX_ROWS; i++)
@@ -155,7 +158,8 @@ void warmup(MemorySystem *sys) {
         }
     print_stats(sys);
 
-    /* Com warm-up de 256 elementos (exatamente a capacidade da L2) */
+    /* Com warm-up */
+    printf("\nCom warm-up\n");
     init_memory(sys); load_matrix(sys);
     warmup_cache(sys, MATRIX_BASE, 256);   /* warm-up sem contar nos stats */
     sum = 0;
