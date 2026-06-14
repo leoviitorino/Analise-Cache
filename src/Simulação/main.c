@@ -116,7 +116,7 @@ void columnsXrows(MemorySystem *sys) {
     printf("\n\tLinha vs Coluna\n");
 
     /* Acesso por linha */
-    init_memory(sys); load_matrix(sys); reset_stats(sys);
+    init_memory(sys);
     sum = 0;
     for (int i = 0; i < MATRIX_ROWS; i++)
         for (int j = 0; j < MATRIX_COLS; j++) {
@@ -126,7 +126,7 @@ void columnsXrows(MemorySystem *sys) {
     print_stats(sys);
 
     /* Acesso por coluna */
-    init_memory(sys); load_matrix(sys); reset_stats(sys);
+    init_memory(sys); 
     sum = 0;
     for (int j = 0; j < MATRIX_COLS; j++)
         for (int i = 0; i < MATRIX_ROWS; i++) {
