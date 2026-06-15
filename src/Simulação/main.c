@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 #include "Cache.h"
 
@@ -172,6 +173,54 @@ void warmup(MemorySystem *sys) {
 }
 
 
+void sequencial_vs_aleatorio(MemorySystem *sys) {
+    int val = 0;
+    long long sum;
+
+    printf("\n\tSequencial vs Aleatorio Real\n");
+
+    /* 1. Acesso Sequencial  */
+    printf("\nAcesso Sequencial\n");
+    init_memory(sys); load_matrix(sys); reset_stats(sys);
+    sum = 0;
+    for (int i = 0; i < MATRIX_ROWS; i++) {
+        for (int j = 0; j < MATRIX_COLS; j++) {
+            read_memory(sys, mat_addr(i, j), &val);
+            sum += val;
+        }
+    }
+    print_stats(sys);
+
+    /* 2. Acesso Aleatório */
+    printf("\nAcesso Aleatorio\n");
+    init_memory(sys); load_matrix(sys); reset_stats(sys);
+    sum = 0;
+
+    // Criar o vetor auxiliar contendo todos os índices de 0 a 4095
+    int indices_aleatorios[MATRIX_SIZE];
+    for (int i = 0; i < MATRIX_SIZE; i++) {
+        indices_aleatorios[i] = i;
+    }
+
+    // Embaralhar o vetor
+    srand(42);
+    for (int i = MATRIX_SIZE - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        int temp = indices_aleatorios[i];
+        indices_aleatorios[i] = indices_aleatorios[j];
+        indices_aleatorios[j] = temp;
+    }
+
+    // Consultar a matriz
+    for (int k = 0; k < MATRIX_SIZE; k++) {
+        int id = indices_aleatorios[k];
+        
+        read_memory(sys, MATRIX_BASE + id, &val);
+        sum += val;
+    }
+    print_stats(sys);
+}
+
 /* ── main ─────────────────────────────────────────────────────────────────── */
 
 int main(void) {
@@ -179,6 +228,7 @@ int main(void) {
 
     columnsXrows(&memory);
     warmup(&memory);
+    sequencial_vs_aleatorio(&memory);
 
     printf("\n");
     return 0;
