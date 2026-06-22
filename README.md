@@ -1,4 +1,4 @@
-    # Repositório criado para o Trabalho de Arquitetura de Computadores 2026/1
+# Repositório criado para o Trabalho de Arquitetura de Computadores 2026/1
 
  Projeto desenvolvido para analisar como diferentes acessos de memória influenciam o desempenho da hierarquia da cache.
 
